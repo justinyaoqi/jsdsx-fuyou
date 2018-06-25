@@ -1,0 +1,27 @@
+{
+    "name": "jsdsx/fuyou",
+    "description": "江苏德司信信息产业投资股份有限公司",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yanlongli"
+        }
+    ],
+    "require": {
+        "psr/log": "*",
+        "monolog/monolog": "1.*",
+        "aferrandini/phpqrcode": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jsdsx\\FuYou\\": "src/"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}
