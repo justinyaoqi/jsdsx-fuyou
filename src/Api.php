@@ -9,11 +9,9 @@
 
 namespace Jsdsx\FuYou;
 
+use Jsdsx\FuYou\Support\Log;
 use Jsdsx\FuYou\Support\Signature;
 
-/**
- * Class Api
- */
 class Api
 {
     //加密类型
@@ -31,16 +29,11 @@ class Api
     public $organizationNumber;//机构号
     public $signature;//签名方式 当次请求的签名方式，对应SIGNATURE_TYPE_XX常量
     public $signatureKey;//签名密钥
+    public $signaturePublicKey;//非对称加密解密验证秘钥
     public $method;//请求方式
     public $interfaceAddress;//请求地址
     public $merchantNumber;//商户号
     public $apiVersion;//api接口版本号
-    /**
-     * @var array
-     */
-    public $transactionCode;//交易处理码集合
-
-    public $domainCode;
 
     /**
      * Api constructor.
@@ -49,52 +42,61 @@ class Api
      * @param string|null $method
      * @param string|null $signatureKey
      * @param string|null $signature
+     * @param null $signaturePublicKey
      * @param string|null $organizationNumber
      * @param string|null $merchantNumber
      * @param string|null $apiVersion
      */
-    public function __construct($config, $interfaceAddress = null, $method = null, $signatureKey = null, $signature = null, $organizationNumber = null, $merchantNumber = null,$apiVersion = null)
+    public function __construct($config, $interfaceAddress = null, $method = null, $signatureKey = null, $signature = null, $signaturePublicKey = null, $organizationNumber = null, $merchantNumber = null, $apiVersion = null)
     {
         if (is_array($config)) {
             extract($config, EXTR_OVERWRITE);
             $this->interfaceAddress = $interfaceAddress;
             $this->method = $method;
             $this->signatureKey = $signatureKey;
+            $this->signaturePublicKey = $signaturePublicKey;
             $this->signature = $signature;
             $this->organizationNumber = $organizationNumber;
             $this->merchantNumber = $merchantNumber;
             $this->apiVersion = $apiVersion;
         }
-
-        $this->transactionCode = require __DIR__ . '/config/transactionCode.php';
-        $this->domainCode = require __DIR__ . '/config/domainCode.php';
     }
 
     /**
      * @param $data string|array
+     * @param bool $verify 是否为验证签名
      * @return bool|string
      */
-    function sign($data)
+    function sign($data, $verify = false)
     {
 
         $dataStr = '';
-
         if (is_array($data)) {
             ksort($data);
-            foreach ($data as $key=>$val){
-                if($key=='sign' || substr($key,0,strlen('reserved')==='reserved')){
+            foreach ($data as $key => $val) {
+                if ($key === 'sign' || substr($key, 0, strlen('reserved')) === 'reserved') {
                     continue;
                 }
-                $dataStr .= '&'.$key.'='.$val;
+                if (is_array($val) && empty($val))
+                    $val = '';
+                $dataStr .= '&' . $key . '=' . $val;
             }
-        }elseif(is_string($data)){
+        } elseif (is_string($data)) {
             $dataStr = $data;
-        }else{
+            parse_str($dataStr, $data);
+        } else {
             return false;
         }
-        $dataStr = ltrim($dataStr,'&');
+        $dataStr = ltrim($dataStr, '&');
         if (strtoupper($this->signature) == self::SIGNATURE_TYPE_RSA) {
-            return Signature::RsaEncode($dataStr, $this->signatureKey, false);
+            if ($verify) {
+                if (!isset($data['sign'])) {
+                    Log::info("签名验证时未发现sign验证字段", $data);
+                    return false;
+                }
+                return Signature::verify($dataStr, $data['sign'], $this->signaturePublicKey, true);
+            }
+            return Signature::signature($dataStr, $this->signatureKey);
         }
 
         if (strtoupper($this->signature) == self::SIGNATURE_TYPE_MD5) {

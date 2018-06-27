@@ -1,24 +1,29 @@
-# [XDF SDK](http://pfinal.cn)
+# [FuYou SDK](http://blog.yanlongli.com)
 
-一个简单易用的信达付支付SDK。
+一个简单易用的富友支付SDK。
 
->更多信息请访问 https://www.x-d-f.com
+>更多信息请访问 http://blog.yanlongli.com
 
 开发者交流 QQ 群：`000000`
 
+> 如果你认为功能不足，请自行下载源码进行扩展。
+
+>请同意并遵循MIT开源协议，保留许可声明。
+
 ##使用教程  
 ```shel
-	composer require xdf/pay
+	composer require jsdsx/fuyou
 ```
 #### 如果你的项目没有使用composer
 
-    请下载phpqrcode.php并引入
-    引入demo/autoload.php并修正其内部路径
+    请自行下载composer并进行update操作
+    
+    然后引入composer的自动加载类
 
 
 ## 特点
 
- - 官方SDK简单封装，避免过度封装带来的额外学习成本以及影响扩展性;
+ - 官方方法简单封装，避免过度封装带来的额外学习成本以及影响扩展性;
  - 核心API类单文件，简单易用，隐藏开发者不需要关注的细节;
  - 抽象了消息事件，让你的控制器代码更优雅，扩展和维护更容易;
  - 详细的调试日志，让开发更轻松;
@@ -30,7 +35,7 @@
 > 无
 >
 ## 在线文档
->[点击查看](http://pay.x-d-f.com/doc/xdf-posp-proxy/)
+>[无]()
 
 ## 安装
 
@@ -41,56 +46,7 @@
 
 查看demo中的示例  demo/demo.php 是演示demo
 
-    //配置项 
-    $config = new  array(
-    
-        //支付接口地址（信达付分配）
-        'interfaceAddress'=>'http://lala.x-d-f.com/xdf-interface/request.jhtml',
-    
-        //提交方式：post
-        'method'=>'post',
-    
-        //字符编码：统一采用UTF-8字符编码
-        'character'=> 'UTF-8',
-    
-        //签名算法：MD5，后续会兼容SHA1、SHA256、HMAC-SHA1  HMAC-SHA256 HMAC-MD5等
-        'signature'=>'MD5',
-    
-        //签名密钥
-        'signatureKey'=>'123456',
-    
-        //签名要求：请求和接收数据均需要校验签
-    
-        //机构号（信达付分配）
-        'organizationNumber'=>'',
-    
-        //商户号
-        'merchantNumber'=>'',
-    
-        //语言包
-        'language'=>'zh-cn',
-    );
-    //初始化
-    Kernel::init($config);
-    
-    try {
-        //获取扫码通道类型列表
-        $list = ScanCodeService::getListScavengingChannelTypes();
-        var_dump($list);
-        //支付宝正扫 member scan seller
-        $c = ScanCodeService::alipayM2S("123456789", "A10100050392342", "1");
-        /**
-         * 这里的Qrcode是来自于https://sourceforge.net/projects/phpqrcode/ 的开源项目  源文件名为phpqrcode.php
-         */
-        QRcode::png($c[62], false, 'L', 5, 2);
-    
-    } catch (\Xdf\Pay\XdfException $e) {
-        //todo 预错处理
-    
-    }
-    //获取通道列表
-    
-    ScanCodeService::getListScavengingChannelTypes();
+    请查看demo中的config-local.php
 
 ##常见问题
 
@@ -99,12 +55,7 @@
 ·跳转地址 同步请求第三方网站时，结果处理完毕跳转回本站地址
     
 ## 修正问题
-	2018年4月28日
-	修正网关下单时3域交易参数错误问题
-	修复提交方式被重写问题
-	
-	修正值为0时 empty导致不参与加密问题
-	修正在linux服务器严格区分路径问题
-	修正退款时请求行为参数错误问题
+	修正签名验证失败问题
+	修正统一下单传递不参与签名字段
 
     
