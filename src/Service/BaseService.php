@@ -44,8 +44,8 @@ class BaseService
         }
         //url解码，gbk转utf-8
 //        $result = urldecode(Curl::execute(Kernel::getApi()->interfaceAddress, $method, ['req'=>urlencode(($data))]));
-//        $result = iconv("GBK", "UTF-8//IGNORE", urldecode(Curl::execute(Kernel::getApi()->interfaceAddress.$extendUrl, $method, ['req'=>urlencode(urlencode($data))])));
-        $result = urldecode(Curl::execute(Kernel::getApi()->interfaceAddress.$extendUrl, $method, ['req'=>urlencode(urlencode($data))]));
+        $result = iconv("GBK", "UTF-8//IGNORE", urldecode(Curl::execute(Kernel::getApi()->interfaceAddress.$extendUrl, $method, ['req'=>urlencode(urlencode($data))])));
+//        $result = urldecode(Curl::execute(Kernel::getApi()->interfaceAddress.$extendUrl, $method, ['req'=>urlencode(urlencode($data))]));
         Log::debug('url：' . Kernel::getApi()->interfaceAddress, ['result' => $result]);
 //        $result = urldecode($result);
         //校验数据完整性和签名

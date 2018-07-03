@@ -41,7 +41,7 @@ class ScanCodeService extends BaseService
         $postData['order_amt'] = sprintf('%012s', $price);//补足12位
         $postData['term_ip'] = '127.0.0.1';//客户端ip
         $postData['txn_begin_ts'] = date('YmdHis', time());
-//        $postData['goods_tag'] = '';//商品标签
+        $postData['goods_tag'] = '';//商品标签
         $postData['notify_url'] = Kernel::getConfig('callback');//异步回调地址
 //        $postData['reserved_sub_appid'] = '';//无
 //        $postData['reserved_limit_pay'] = '';//限制支付方式（）no_credit不能使用信用卡
