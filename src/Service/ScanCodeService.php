@@ -35,7 +35,7 @@ class ScanCodeService extends BaseService
         $postData['order_type'] = $paymentType; //支付方式
         $postData['goods_des'] = iconv('UTF-8', 'GBK//IGNORE', $goods_description);//商品描述
         $postData['goods_detail'] = iconv('UTF-8', 'GBK//IGNORE', $goods_detail);;//商品详情
-//        $postData['addn_inf'] = '';//附加数据
+        $postData['addn_inf'] = '';//附加数据
         $postData['mchnt_order_no'] = $order_sn;//商户订单号5-30
         $postData['curr_type'] = 'CNY';//货币类型
         $postData['order_amt'] = sprintf('%012s', $price);//补足12位
