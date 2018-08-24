@@ -16,7 +16,8 @@ if (!isset($_GET['type'])) {
 if ($_GET['type'] == '1') {
 //    var_dump(Kernel::getApi()->sign("addn_inf=&buyer_id=2088702923096592&ins_cd=08A9999999&mchnt_cd=0002900F0370542&mchnt_order_no=3ac85f48313c509bf185fe62330f4a&order_amt=1&order_type=ALIPAY&random_str=B9KGGWDVL8BE54XZ70QNH566IFQAFUHF&result_code=000000&result_msg=SUCCESS&term_id=88888888&trans_stat=REFUND&transaction_id=2018062521001004590547992686",true));
 //    exit();
-    $c = ScanCodeService::M2S(substr(md5(uniqid()), 1, 30), \Jsdsx\FuYou\Api::PAYMENT_ALIPAY, 1, '28256好商品', "28257商品描述");
+    $c = ScanCodeService::M2S("11111111111111111111", \Jsdsx\FuYou\Api::PAYMENT_ALIPAY, 1, '28256好商品', "28257商品描述");
+//    $c = ScanCodeService::M2S(substr(md5(uniqid()), 1, 30), \Jsdsx\FuYou\Api::PAYMENT_ALIPAY, 1, '28256好商品', "28257商品描述");
     if(isset($_GET['c']) && $_GET['c']==2){
         var_dump($c);
         var_dump(Kernel::getApi()->sign($c));

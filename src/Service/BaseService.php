@@ -36,6 +36,7 @@ class BaseService
             if(strtoupper(Kernel::getConfig('dataType'))=='XML')
             $data = Xml::arrayToXml($data);
         }
+        Log::debug('url：' . Kernel::getApi()->interfaceAddress, ['result' => $data]);
         //如传递了请求方式，怎使用，否则用配置方式
         $method = $method ? $method : Kernel::getApi()->method;
         //如配置请求方式无效，则根据data是否有数据选定请求方式，无get，有post
