@@ -9,6 +9,9 @@
         }
     ],
     "require": {
+        "ext-iconv":"*",
+        "ext-simplexml":"*",
+        "ext-json":"*",
         "psr/log": "*",
         "monolog/monolog": "1.*"
     },

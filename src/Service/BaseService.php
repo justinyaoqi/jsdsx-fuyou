@@ -43,12 +43,14 @@ class BaseService
         if (!$method) {
             $method = is_null($data) ? 'get' : 'post';
         }
+        print_r($data);
         //url解码，gbk转utf-8
 //        $result = urldecode(Curl::execute(Kernel::getApi()->interfaceAddress, $method, ['req'=>urlencode(($data))]));
         $result = iconv("GBK", "UTF-8//IGNORE", urldecode(Curl::execute(Kernel::getApi()->interfaceAddress.$extendUrl, $method, ['req'=>urlencode(urlencode($data))])));
 //        $result = urldecode(Curl::execute(Kernel::getApi()->interfaceAddress.$extendUrl, $method, ['req'=>urlencode(urlencode($data))]));
         Log::debug('url：' . Kernel::getApi()->interfaceAddress, ['result' => $result]);
 //        $result = urldecode($result);
+        print_r($result);
         //校验数据完整性和签名
         $result = simplexml_load_string(substr($result,strpos($result,'>')+1));
 //        self::checkData($result);
