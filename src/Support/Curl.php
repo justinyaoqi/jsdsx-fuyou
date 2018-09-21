@@ -20,6 +20,7 @@ class Curl
      *      从 PHP 5.2.0 开始，使用 @ 前缀传递文件时，value 必须是个数组。
      *      从 PHP 5.5.0 开始, @ 前缀已被废弃，文件可通过 \CURLFile 发送。
      * @param array $options
+     * @param array $errors
      * @return mixed
      */
     public static function execute($url, $method, $postData = null, $options = array(), &$errors = array())

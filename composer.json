@@ -11,7 +11,9 @@
     "require": {
         "ext-iconv":"*",
         "ext-simplexml":"*",
+        "ext-openssl":"*",
         "ext-json":"*",
+        "ext-curl":"*",
         "psr/log": "*",
         "monolog/monolog": "1.*"
     },

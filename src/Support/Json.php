@@ -2,7 +2,8 @@
 
 namespace Jsdsx\FuYou\Support;
 
-use Xdf\Pay\XdfException;
+
+use Jsdsx\FuYou\JsdsxException;
 
 class Json
 {
@@ -31,7 +32,7 @@ class Json
      * 解析微信平台返回的json字符串，转为数组，错误时，抛异常
      * @param $jsonStr
      * @return array
-     * @throws XdfException
+     * @throws JsdsxException
      */
     public static function parseOrFail($jsonStr)
     {
@@ -42,7 +43,7 @@ class Json
                 $arr['errmsg'] = 'Unknown';
             }
 
-            throw new XdfException($arr['errmsg'], $arr['errcode']);
+            throw new JsdsxException($arr['errmsg'], $arr['errcode']);
         }
         return $arr;
     }

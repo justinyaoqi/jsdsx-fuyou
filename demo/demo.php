@@ -101,7 +101,7 @@ if ($_GET['type'] == '5') {
 }
 if ($_GET['type'] == '6') {
     //发起提现
-    $c = \Jsdsx\FuYou\Service\Query::withdraw(1,1);
+    $c = \Jsdsx\FuYou\Service\Query::withdraw($_GET['amt'],$_GET['fee_amt']);
     var_dump($c);
 }
 if ($_GET['type'] == '7') {

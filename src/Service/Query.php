@@ -47,7 +47,8 @@ class Query extends BaseService
         $postData['random_str'] = md5(uniqid(mt_rand(), true));
         $postData['amt'] = $amt;
         $postData['fee_amt'] = $feeAmt;
-        $postData['txn_type'] = 2;
+        $postData['txn_type'] = 1;
+        var_dump($postData);
         return self::request(__FUNCTION__, $postData);
     }
 

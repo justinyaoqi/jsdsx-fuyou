@@ -10,10 +10,8 @@
 namespace Jsdsx\FuYou\Service;
 
 
-use Jsdsx\FuYou\JsdsxException;
 use Jsdsx\FuYou\Kernel;
 use Jsdsx\FuYou\Support\Curl;
-use Jsdsx\FuYou\Support\Json;
 use Jsdsx\FuYou\Support\Log;
 use Jsdsx\FuYou\Support\Xml;
 
@@ -24,7 +22,7 @@ class BaseService
      * @param bool $Encode
      * @param string $method
      * @param string $extendUrl
-     * @return array
+     * @return mixed
      */
     protected static function request($extendUrl = '',$data = null, $Encode = true, $method = '')
     {
@@ -55,16 +53,5 @@ class BaseService
         $result = simplexml_load_string(substr($result,strpos($result,'>')+1));
 //        self::checkData($result);
         return json_decode(json_encode($result),true);
-    }
-
-
-    /**
-     * 校验数据完整性和签名是否正确
-     * @param $result
-     * @return array
-     */
-    public static function checkData($result)
-    {
-
     }
 }
