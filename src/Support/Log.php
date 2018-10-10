@@ -5,6 +5,16 @@ namespace Jsdsx\FuYou\Support;
 
 use Jsdsx\FuYou\Kernel;
 
+/**
+ * Class Log
+ * @package Jsdsx\FuYou\Support
+ * @method void error(string $message,array $context = []) static 错误日志;
+ * @method void debug(string $message,array $context = []) static 调试日志;
+ * @method void info(string $message,array $context = []) static 普通日志;
+ * @method void notice(string $message,array $context = []) static 普通日志;
+ * @method void warning(string $message,array $context = []) static 普通日志;
+ * @method void alert(string $message,array $context = []) static 普通日志;
+ */
 class Log
 {
     /**
