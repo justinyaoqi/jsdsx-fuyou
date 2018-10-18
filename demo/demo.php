@@ -8,7 +8,7 @@ require "../vendor/autoload.php";
 date_default_timezone_set('Asia/Shanghai');
 //初始化核心类
 $service = new Kernel();
-$service->init();
+$service->init(require_once 'config.php');
 if (!isset($_GET['type'])) {
     $_GET['type'] = '2';
 }
