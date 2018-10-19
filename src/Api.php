@@ -20,8 +20,12 @@ class Api
     const SIGNATURE_TYPE_MD5 = 'MD5';
     const SIGNATURE_TYPE_RSA = 'RSA';
 
-    const PAYMENT_WECHAT = 'WECHAT';//微信
-    const PAYMENT_ALIPAY = 'ALIPAY';//支付宝
+    const PAYMENT_WECHAT = 'WECHAT';//微信 扫码
+    const PAYMENT_H5_WECHAT = 'JSAPI';//微信公众号H5
+    const PAYMENT_WXAPP_WECHAT = 'LETPAY';//微信小程序
+    const PAYMENT_ALIPAY = 'ALIPAY';//支付宝 扫码
+    const PAYMENT_H5_ALIPAY = 'FWC';//支付宝 服务窗H5
+
     const PAYMENT_QQ = 'QQ';//QQ钱包
     const PAYMENT_UNIONPAY = 'UNIONPAY';//银联支付
     const PAYMENT_BESTPAY = 'BESTPAY';//中国电信（翼支付）
@@ -94,7 +98,7 @@ class Api
                     Log::info("签名验证时未发现sign验证字段", $data);
                     return false;
                 }
-                return Signature::verify($dataStr, $data['sign'], $this->signaturePublicKey, true);
+                return Signature::verify(iconv('UTF-8', 'GBK//IGNORE', $dataStr), $data['sign'], $this->signaturePublicKey, true);
             }
             return Signature::signature($dataStr, $this->signatureKey);
         }
